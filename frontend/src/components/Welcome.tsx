@@ -7,11 +7,11 @@ export default function Welcome(){
 
     return (
         <>
-            <h2>Arc Raider Hub</h2>
+            <h2>Arc Raiders Hub</h2>
             <div className="image-wrapper margin-top-20">
                 <img
                     src={welcomePic}
-                    alt="Welcome to Word Link Hub"
+                    alt="Welcome to Arc Raiders Hub"
                     className="logo-welcome"
                     onClick={()=> navigate("/items")}
                 />
