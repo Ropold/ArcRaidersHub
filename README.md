@@ -57,7 +57,6 @@
   - **Java 21** - Modern LTS version with latest features
   - **Spring Boot 3.x** - Enterprise application framework
   - **Spring Security** - OAuth2 authentication and authorization
-  - **Spring Data MongoDB** - MongoDB database abstraction layer
   - **MongoDB** - NoSQL document database
   - **Maven** - Dependency management and build tool
 
@@ -74,4 +73,3 @@
   - **GitHub Actions** - CI/CD pipeline automation
   - **Render** - Cloud platform for hosting
   - **SonarCloud** - Code quality and security analysis
-  - **H2 Database** - In-memory database for testing
