@@ -1,6 +1,6 @@
  # Arc Raiders Hub
 
-  A full-stack web application for Loot and Item for the Game Arc Raiders.
+  A backend application for managing loot and items in the game Arc Raiders.
 
   🔗 **Live Demo:** [arcraidershub.onrender.com](https://arcraidershub.onrender.com)
 
@@ -57,9 +57,8 @@
   - **Java 21** - Modern LTS version with latest features
   - **Spring Boot 3.x** - Enterprise application framework
   - **Spring Security** - OAuth2 authentication and authorization
-  - **Spring Data JPA** - Database abstraction layer
-  - **PostgreSQL** - Relational database with full SQL support
-  - **Hibernate** - ORM with automatic schema generation
+  - **Spring Data MongoDB** - MongoDB database abstraction layer
+  - **MongoDB** - NoSQL document database
   - **Maven** - Dependency management and build tool
 
   ### Frontend
