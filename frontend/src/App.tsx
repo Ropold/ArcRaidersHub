@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
 import './App.css'
-import type {UserDetails} from "./components/styles/UserDetailsModel.ts";
+import type {UserDetails} from "./components/model/UserDetailsModel.ts";
 import axios from "axios";
 import Navbar from "./components/Navbar.tsx";
 import {Route, Routes} from "react-router-dom";
@@ -9,6 +9,7 @@ import NotFound from "./components/NotFound.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import Profile from "./components/Profile.tsx";
 import Footer from "./components/Footer.tsx";
+import Items from "./components/Items.tsx";
 
 export default function App() {
     const [user, setUser] = useState<string>("anonymousUser");
@@ -54,6 +55,7 @@ export default function App() {
         <Routes>
             <Route path="*" element={<NotFound />} />
             <Route path="/" element={<Welcome />}/>
+            <Route path="/items" element={<Items />}/>
             <Route element={<ProtectedRoute user={user}/>}>
                 <Route path="/profile/*" element={<Profile user={user} userDetails={userDetails} language={language}/>} />
             </Route>

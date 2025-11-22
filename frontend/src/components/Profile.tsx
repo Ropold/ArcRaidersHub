@@ -1,4 +1,5 @@
-import type {UserDetails} from "./styles/UserDetailsModel.ts";
+import type {UserDetails} from "./model/UserDetailsModel.ts";
+import "./styles/Profile.css";
 
 type ProfileProps = {
     user: string;
