@@ -34,14 +34,6 @@
     background-color: #007bff;
 }
 
-#clickable-header-play {
-    background-color: #66bb6a;
-}
-
-#clickable-header-play:hover {
-    background-color: #388e3c;
-}
-
 .header-title {
     margin: 2px;
     font-family: inherit;

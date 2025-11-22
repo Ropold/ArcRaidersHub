@@ -5,6 +5,7 @@ import * as React from "react";
 import headerLogo from "../assets/rainbow-logo-small.png"
 import {LanguagesImages} from "./utils/FlagImages.ts";
 import {translatedGameInfo} from "./utils/TranslatedGameInfo.ts";
+import "./styles/Buttons.css"
 
 type NavbarProps = {
     user: string;
@@ -39,10 +40,9 @@ export default function Navbar(props: Readonly<NavbarProps>) {
 
     return (
         <nav className="navbar">
-            <button className="button-group-button" onClick={() => navigate("/")}>Home</button>
+            <button className="blue-button" onClick={() => navigate("/")}>Home</button>
             <div
-                className="clickable-header"
-                id="clickable-header-play"
+                className="green-button clickable-header"
                 onClick={() => {
                     navigate("/items");
                 }}
@@ -97,10 +97,10 @@ export default function Navbar(props: Readonly<NavbarProps>) {
             {props.user !== "anonymousUser" ? (
                 <>
                     <button className="purple-button" onClick={() => navigate("/profile")}>Profile</button>
-                    <button className="button-group-button" onClick={logoutFromGithub}>Logout</button>
+                    <button className="blue-button" onClick={logoutFromGithub}>Logout</button>
                 </>
             ) : (
-                <button className="button-group-button" onClick={loginWithGithub}>Login with GitHub</button>
+                <button className="blue-button" onClick={loginWithGithub}>Login with GitHub</button>
             )}
         </nav>
     );
