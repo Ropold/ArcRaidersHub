@@ -2,7 +2,11 @@ import {useNavigate} from "react-router-dom";
 import "./styles/Welcome.css"
 import welcomePic from "../assets/rainbow-logo-small.png"
 
-export default function Welcome(){
+type WelcomeProps = {
+    role: string;
+}
+
+export default function Welcome(props: Readonly<WelcomeProps>) {
     const navigate = useNavigate();
 
     return (
@@ -16,6 +20,7 @@ export default function Welcome(){
                     onClick={()=> navigate("/items")}
                 />
             </div>
+            <h3>Your role: {props.role}</h3>
         </>
     )
 }
