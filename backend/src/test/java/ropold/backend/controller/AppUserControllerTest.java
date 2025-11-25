@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.test.web.servlet.MockMvc;
 import ropold.backend.model.AppUser;
+import ropold.backend.model.UserRole;
 import ropold.backend.repository.AppUserRepository;
 
 import java.util.List;
@@ -44,6 +45,7 @@ class AppUserControllerTest {
                 "Max Mustermann",
                 "https://github.com/avatar",
                 "https://github.com/mustermann",
+                UserRole.USER,
                 List.of("2")
         );
         appUserRepository.save(user);
