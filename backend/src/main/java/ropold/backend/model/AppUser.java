@@ -8,6 +8,7 @@ public record AppUser(
         String name,
         String avatarUrl,
         String githubUrl,
+        UserRole role,
         List<String> favoriteLoots
 ) {
 }

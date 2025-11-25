@@ -17,6 +17,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import ropold.backend.model.AppUser;
+import ropold.backend.model.UserRole;
 import ropold.backend.repository.AppUserRepository;
 
 
@@ -72,9 +73,9 @@ public class SecurityConfig {
                                 githubUser.getAttribute("name"),
                                 githubUser.getAttribute("avatar_url"),
                                 githubUser.getAttribute("html_url"),
+                                UserRole.USER,
                                 Collections.emptyList()
                         );
-                        // hier kannst du die Rolle des Users setzen, z.B. "ROLE_USER"
                         return appUserRepository.save(newUser);
                     });
             return githubUser;
