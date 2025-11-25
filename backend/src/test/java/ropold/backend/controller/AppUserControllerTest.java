@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.test.web.servlet.MockMvc;
 import ropold.backend.model.AppUser;
+import ropold.backend.model.UserRole;
 import ropold.backend.repository.AppUserRepository;
 
 import java.util.List;
@@ -44,6 +45,7 @@ class AppUserControllerTest {
                 "Max Mustermann",
                 "https://github.com/avatar",
                 "https://github.com/mustermann",
+                UserRole.USER,
                 List.of("2")
         );
         appUserRepository.save(user);
@@ -109,6 +111,28 @@ class AppUserControllerTest {
                     "message": "User not authenticated"
                 }
             """));
+    }
+
+    @Test
+    void testGetUserRole_withLoggedInUser_expectRole() throws Exception {
+        OAuth2User mockUser = mock(OAuth2User.class);
+        when(mockUser.getName()).thenReturn("user");
+
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        Authentication authentication = new UsernamePasswordAuthenticationToken(mockUser, null, mockUser.getAuthorities());
+        context.setAuthentication(authentication);
+        SecurityContextHolder.setContext(context);
+
+        mockMvc.perform(get("/api/users/me/role"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("USER"));
+    }
+
+    @Test
+    void testGetUserRole_withoutLogin_expectAnonymousUser() throws Exception {
+        mockMvc.perform(get("/api/users/me/role"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("anonymousUser"));
     }
 
 }

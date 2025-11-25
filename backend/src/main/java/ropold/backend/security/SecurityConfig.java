@@ -10,17 +10,23 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import ropold.backend.model.AppUser;
+import ropold.backend.model.UserRole;
 import ropold.backend.repository.AppUserRepository;
 
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -32,6 +38,7 @@ public class SecurityConfig {
 
     private final AppUserRepository appUserRepository;
     private static final String ARCRAIDERS = "/api/arc-raiders-hub/**";
+    private static final String ADMIN = "ADMIN";
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -39,9 +46,9 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(a -> a
                         .requestMatchers(HttpMethod.GET, ARCRAIDERS).permitAll()
-                        .requestMatchers(HttpMethod.POST, ARCRAIDERS).authenticated()
-                        .requestMatchers(HttpMethod.PUT, ARCRAIDERS).authenticated()
-                        .requestMatchers(HttpMethod.DELETE, ARCRAIDERS).authenticated()
+                        .requestMatchers(HttpMethod.POST, ARCRAIDERS).hasRole(ADMIN)
+                        .requestMatchers(HttpMethod.PUT, ARCRAIDERS).hasRole(ADMIN)
+                        .requestMatchers(HttpMethod.DELETE, ARCRAIDERS).hasRole(ADMIN)
                         .requestMatchers("/api/users/me").permitAll()
                         .requestMatchers("/api/users/me/details").permitAll()
                         //.requestMatchers("/api/high-score").permitAll()
@@ -72,12 +79,16 @@ public class SecurityConfig {
                                 githubUser.getAttribute("name"),
                                 githubUser.getAttribute("avatar_url"),
                                 githubUser.getAttribute("html_url"),
+                                UserRole.USER,
                                 Collections.emptyList()
                         );
-                        // hier kannst du die Rolle des Users setzen, z.B. "ROLE_USER"
                         return appUserRepository.save(newUser);
                     });
-            return githubUser;
+
+            List<GrantedAuthority> authorities = new ArrayList<>(githubUser.getAuthorities());
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + user.role().name()));
+
+            return new DefaultOAuth2User(authorities, githubUser.getAttributes(), "id");
         };
     }
 

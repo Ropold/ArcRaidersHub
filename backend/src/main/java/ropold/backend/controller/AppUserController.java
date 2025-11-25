@@ -31,4 +31,12 @@ public class AppUserController {
         return user.getAttributes();
     }
 
+    @GetMapping("/me/role")
+    public String getUserRole(@AuthenticationPrincipal OAuth2User user) {
+        if (user == null) {
+            return "anonymousUser";
+        }
+        return appUserService.getUserRole(user.getName());
+    }
+
 }

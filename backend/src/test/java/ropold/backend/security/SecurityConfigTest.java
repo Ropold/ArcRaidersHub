@@ -12,6 +12,7 @@ import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import ropold.backend.model.AppUser;
+import ropold.backend.model.UserRole;
 import ropold.backend.repository.AppUserRepository;
 
 import java.time.Instant;
@@ -66,7 +67,7 @@ class SecurityConfigTest {
         when(mockUserService.loadUser(userRequest)).thenReturn(mockOAuth2User);
 
         AppUser existingUser = new AppUser("existingUser", "existingUser", "Existing User",
-                "https://github.com/avatar", "https://github.com/existingUser", Collections.emptyList());
+                "https://github.com/avatar", "https://github.com/existingUser", UserRole.USER, Collections.emptyList());
         when(appUserRepository.findById("existingUser")).thenReturn(Optional.of(existingUser));
 
         OAuth2UserService<OAuth2UserRequest, OAuth2User> oauth2UserService = new SecurityConfig(appUserRepository) {

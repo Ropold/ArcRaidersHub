@@ -16,4 +16,9 @@ public class AppUserService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
 
+    public String getUserRole(String userId) {
+        AppUser user = getUserById(userId);
+        return user.role().name();
+    }
+
 }
